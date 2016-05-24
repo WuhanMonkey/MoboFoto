@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#FFFFFF"
+   >
+
+
+        <ImageView 
+            android:id="@+id/iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            />
+
+        <Button
+            android:background="@drawable/button_style"
+            android:id="@+id/edge"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:text="Detect" 
+            style="@style/button_text"/>
+
+        <Button
+            android:background="@drawable/button_style"
+            android:id="@+id/analysis"
+            android:layout_alignBaseline="@+id/edge"
+            android:layout_alignBottom="@+id/edge"
+            android:layout_toRightOf="@+id/edge"
+            android:layout_width="220dp"
+            android:layout_height="50dp"
+            android:text="Analysis" 
+            style="@style/button_text"/>
+
+        <TextView
+            android:id="@+id/infoText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/edge"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="200dp"
+            android:text="Please select or take a picture"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#55808080"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+</RelativeLayout>

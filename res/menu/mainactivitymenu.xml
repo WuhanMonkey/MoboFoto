@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+   <item android:id="@+id/cameraopen" 
+       android:icon="@android:drawable/ic_menu_camera" 
+       android:title="Camera">       
+   </item> 
+   <item android:id="@+id/select"
+       android:icon="@android:drawable/ic_menu_gallery"
+       android:title="Select">
+   </item>
+   <item android:id="@+id/del_data"
+       android:icon="@android:drawable/ic_menu_crop"
+       android:title="Delete Data">
+   </item>
+   <item android:id="@+id/settings"
+       android:icon="@android:drawable/ic_menu_preferences"
+       android:title="Settings">
+   </item>
+
+</menu>
