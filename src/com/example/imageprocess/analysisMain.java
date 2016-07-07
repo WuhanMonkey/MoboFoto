@@ -34,10 +34,11 @@ import android.widget.Toast;
 //The main class for colorimetric analysis
 public class analysisMain extends Activity{
 	private static String photoPath;
-	 ActionBar.Tab glucoseTab, ovulationTab;
+	 ActionBar.Tab glucoseTab, ovulationTab, allTab;
 	 Fragment glucoseFragmentTab;	 
 	 Fragment ovulationFragmentTab;	
-	 private int glucose_size = 15;
+	 Fragment allFragmentTab;
+	 private int poi_size = 15;
 
 	 private String analysisType = "";
 	
@@ -63,9 +64,12 @@ public class analysisMain extends Activity{
 		final String PREF_OVU_NAME = "OvuFile";
 		final String DATA_OVU ="Ovu";
 		if(analysisType.equals("Glucose"))
-			glocuse_activity(intent, bar,  PREF_FILE_NAME,  DATA_NAME );
+			glucose_activity(intent, bar,  PREF_FILE_NAME,  DATA_NAME );
 		else if(analysisType.equals("Ovulation"))		
 			ovulation_activity(intent, bar, PREF_OVU_NAME, DATA_OVU);
+		else if(analysisType.equals("All"))
+			all_activity(intent,bar);
+	
 		
 
         
@@ -77,18 +81,18 @@ public class analysisMain extends Activity{
 	}
 	
 	
-	private void glocuse_activity(Intent intent, ActionBar bar, String PREF_FILE_NAME, String DATA_NAME ){
+	private void glucose_activity(Intent intent, ActionBar bar, String PREF_FILE_NAME, String DATA_NAME ){
 		
 		photoPath = intent.getStringExtra("photoPath");
-		int glu_x = (int)intent.getDoubleExtra("glu_x", 0);
-		int glu_y = (int)intent.getDoubleExtra("glu_y", 0);
-		Glucose glucose = new Glucose(glu_x, glu_y, photoPath,glucose_size);
+		int glu_x = (int)intent.getDoubleExtra("poi_x", 0);
+		int glu_y = (int)intent.getDoubleExtra("poi_y", 0);
+		Glucose glucose = new Glucose(glu_x, glu_y, photoPath,poi_size);
         float result = Method.linear_regression(glucose.concentration, glucose.green_channel, glucose.green);
         String name = intent.getStringExtra("name");
       //Fetch history data if there is any
         DataMap map = fetch(name, result, PREF_FILE_NAME, DATA_NAME);
         glucoseTab = bar.newTab().setText("Glucose");
-        glucoseFragmentTab = new GlucoseFragmentTab(photoPath, glu_x, glu_y,glucose_size, glucose, map, name);
+        glucoseFragmentTab = new GlucoseFragmentTab(photoPath, glu_x, glu_y,poi_size, glucose, map, name);
         glucoseTab.setTabListener(new tabListener(glucoseFragmentTab));
         bar.addTab(glucoseTab);
 		/**new AlertDialog.Builder(analysisMain.this)
@@ -119,9 +123,20 @@ public class analysisMain extends Activity{
 		ovulationFragmentTab= new OvulationFragmentTab(resizedbitmap, map, ovulation, result, name);
 		
 		
-        //ovulationFragmentTab = new OvulationFragmentTab(photoPath, glu_x, glu_y,glucose_size, glucose, map, name);
+        //ovulationFragmentTab = new OvulationFragmentTab(photoPath, glu_x, glu_y,poi_size, glucose, map, name);
         ovulationTab.setTabListener(new tabListener(ovulationFragmentTab));
         bar.addTab(ovulationTab);
+	}
+	
+	private void all_activity(Intent intent, ActionBar bar){
+		
+		int poi_x = (int)intent.getDoubleExtra("poi_x", 0);
+		int poi_y = (int)intent.getDoubleExtra("poi_y", 0);
+		photoPath = intent.getStringExtra("photoPath");
+		allTab = bar.newTab().setText("Calibrate All");
+        allFragmentTab = new AllFragmentTab(photoPath, poi_x, poi_y,poi_size);
+        allTab.setTabListener(new tabListener(allFragmentTab));
+        bar.addTab(allTab);
 	}
 	
 	

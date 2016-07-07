@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:fillViewport = "false">
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dip" >
+
+    <TextView
+        android:id="@+id/page_name"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:gravity="center"
+        android:text="Report for all chemical materials\n\n"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/imageWithCircles"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:adjustViewBounds="true"
+        android:maxHeight="1000dp"
+        android:maxWidth="1000dp"
+        android:scaleType="fitCenter" />
+</LinearLayout>
+
+</ScrollView>
+
+

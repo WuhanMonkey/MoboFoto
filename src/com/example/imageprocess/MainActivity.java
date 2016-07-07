@@ -136,10 +136,10 @@ public class MainActivity extends Activity {
     					if(org_bitmap!=null){
     					Intent analysisIntent=new Intent(MainActivity.this, analysisMain.class);
     					analysisIntent.putExtra("photoPath", pictureName);
-    					double glu_y = (leftbot[1]-lefttop[1])*32/37+lefttop[1];
-    					double glu_x = (rightbot[0]-leftbot[0])*3.5/12.5+leftbot[0];
-    					analysisIntent.putExtra("glu_x", glu_x);
-    					analysisIntent.putExtra("glu_y", glu_y);
+    					double poi_y = (leftbot[1]-lefttop[1])*32/37+lefttop[1];
+    					double poi_x = (rightbot[0]-leftbot[0])*3.5/12.5+leftbot[0];
+    					analysisIntent.putExtra("poi_x", poi_x);
+    					analysisIntent.putExtra("poi_y", poi_y);
     					analysisIntent.putExtra("lefttop_x", lefttop[0]);
     					analysisIntent.putExtra("lefttop_y", lefttop[1]);
     					analysisIntent.putExtra("righttop_x", righttop[0]);
@@ -192,7 +192,24 @@ public class MainActivity extends Activity {
     						
     					
     				}
+    			}).setNeutralButton("All",new OnClickListener() {            				
+    				@Override
+    				public void onClick(DialogInterface dialog, int which) {
+    					if(org_bitmap!=null){
+    						analysisType = "All";
+    						alertDialog.show();
+    					}
+    					else{
+    			            Toast.makeText(MainActivity.this, "Please first select or take a picture!",
+    				                Toast.LENGTH_SHORT).show();
+    					}
+    						
+    					
+    				}
     			});
+		
+		
+			
 		
 		final AlertDialog alertDialogForOpt = alertDialogBuilderForOpt.create();
 		
