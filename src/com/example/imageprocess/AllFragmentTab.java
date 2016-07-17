@@ -37,6 +37,16 @@ import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.*;
 import com.opencsv.CSVWriter;
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
+
+
+
+
 
 public class AllFragmentTab extends Fragment{
 	private String source = null;
@@ -149,7 +159,7 @@ public class AllFragmentTab extends Fragment{
 	    //System.out.println( sdf.format(cal.getTime()) );
 		String fileName = "AllConcentrationTestLog";
 		String filePath = baseDir + File.separator + fileName;
-		File f = new File(filePath );
+		File f = new File(filePath);
 		CSVWriter writer = null; 
 		FileWriter mFileWriter = null;
 		// File exist
@@ -194,6 +204,29 @@ public class AllFragmentTab extends Fragment{
 			e.printStackTrace();
 		}
 		
+		
+		// Initialize the Amazon Cognito credentials provider
+		CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+			getActivity().getApplicationContext(),
+		    "us-east-1:e8f41eaf-c7a0-4124-a10b-5fbe09e19bd4", // Identity Pool ID
+		    Regions.US_EAST_1 // Region
+		);
+		
+		// Initialize the S3 Transfer Utility
+		AmazonS3 s3 = new AmazonS3Client(credentialsProvider);
+		TransferUtility transferUtility = new TransferUtility(s3, getActivity().getApplicationContext());
+		
+		String MY_BUCKET = "mobofoto";
+		String OBJECT_KEY = "AllConcentrationTestLog";
+		
+		TransferObserver observer = transferUtility.upload(
+				  MY_BUCKET,     /* The bucket to upload to */
+				  OBJECT_KEY,    /* The key for the uploaded object */
+				  f        /* The file where the data to upload exists */
+				);
+		
+		Toast.makeText(getActivity(), "Data transfer to Amazon S3 complete!", 
+				   Toast.LENGTH_LONG).show();
 
 }
 	
